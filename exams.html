@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>جدول الامتحانات | بوابة الطالب</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at top left, #173c56 0%, transparent 45%),
+        radial-gradient(ellipse at bottom right, #24204b 0%, transparent 45%),
+        #080d18;
+      color: #fff;
+    }
+
+    /* تأثيرات الخلفية */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(#ffffff06 1px, transparent 1px),
+        linear-gradient(90deg, #ffffff06 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 22px;
+      background: rgba(3, 7, 18, 0.48);
+      backdrop-filter: blur(8px);
+      animation: fadeIn .6s ease;
+    }
+
+    .notice {
+      position: relative;
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+      padding: 42px 28px 32px;
+      border-radius: 24px;
+      border: 1px solid rgba(115, 190, 255, .28);
+      background: linear-gradient(
+        145deg,
+        rgba(26, 44, 68, .92),
+        rgba(12, 18, 34, .96)
+      );
+      box-shadow:
+        0 0 45px rgba(39, 145, 255, .12),
+        inset 0 0 30px rgba(255, 255, 255, .025);
+      animation: appear .7s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .icon {
+      width: 82px;
+      height: 82px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 22px;
+      border-radius: 22px;
+      color: #8bd5ff;
+      font-size: 38px;
+      background: rgba(71, 164, 255, .09);
+      border: 1px solid rgba(104, 194, 255, .3);
+      box-shadow: 0 0 25px rgba(65, 164, 255, .1);
+    }
+
+    .label {
+      color: #83cfff;
+      font-size: 12px;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: clamp(23px, 5vw, 30px);
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .message {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 2;
+      color: #e7edf7;
+      margin-bottom: 12px;
+    }
+
+    .description {
+      font-size: 13px;
+      line-height: 2;
+      color: #a5b4ca;
+      margin-bottom: 28px;
+    }
+
+    .line {
+      height: 1px;
+      width: 75%;
+      margin: 0 auto 22px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        #63b9f8,
+        transparent
+      );
+    }
+
+    button {
+      font-family: inherit;
+      width: 100%;
+      padding: 12px;
+      color: #eaf6ff;
+      background: rgba(77, 157, 232, .12);
+      border: 1px solid rgba(105, 187, 255, .35);
+      border-radius: 12px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    button:hover {
+      background: rgba(77, 157, 232, .25);
+      box-shadow: 0 0 20px rgba(77, 157, 232, .12);
+    }
+
+    footer {
+      margin-top: 24px;
+      font-size: 11px;
+      color: #71839c;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(25px) scale(.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .notice {
+        padding: 34px 22px 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="overlay" id="noticeOverlay">
+    <section class="notice">
+
+      <div class="icon">▦</div>
+
+      <div class="label">STUDENT PORTAL</div>
+
+      <h1>جدول الامتحانات</h1>
+
+      <div class="message">
+             لم يتم إرفاق جدول الإمتحانات بعد
+      </div>
+
+      <div class="description">
+        نرجو متابعة بوابة الطالب للاطلاع على آخر التحديثات
+        والمواعيد الرسمية فور الإعلان عنها.
+      </div>
+
+      <div class="line"></div>
+
+      <button onclick="closeNotice()">
+        فهمت، متابعة
+      </button>
+
+      <footer>
+        بوابة الطالب · المعهد العالي للعلوم والتقنية
+      </footer>
+
+    </section>
+  </main>
+
+  <script>
+    function closeNotice() {
+      const overlay = document.getElementById('noticeOverlay');
+
+      overlay.style.transition = 'opacity .3s ease';
+      overlay.style.opacity = '0';
+
+      setTimeout(() => {
+        overlay.style.display = 'none';
+      }, 300);
+    }
+  </script>
+
+</body>
+</html>
