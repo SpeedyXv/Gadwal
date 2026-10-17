@@ -1,490 +1,1 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>بوابة الطالب - المعهد العالي</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --neon-blue: #00f2ff;
-            --neon-pink: #ff00c1;
-            --tech-bg: #050a15;
-            --glass-white: rgba(255, 255, 255, 0.95);
-        }
-
-        * { box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: var(--tech-bg);
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .cyber-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at center, #102040 0%, #050a15 100%);
-        }
-
-        .grid-line {
-            position: absolute;
-            background: var(--neon-blue);
-            opacity: 0.1;
-            animation: move-grid 10s linear infinite;
-        }
-
-        @keyframes move-grid {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
-        }
-
-        .header-section {
-            margin-top: 30px;
-            text-align: center;
-            animation: fadeInDown 0.8s ease-out;
-        }
-
-        .logos-row {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 10px;
-        }
-
-        .logo-box {
-            width: 80px;
-            height: 80px;
-            background: white;
-            border-radius: 50%;
-            border: 3px solid var(--neon-blue);
-            box-shadow: 0 0 15px var(--neon-blue);
-            padding: 8px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-        .title-text {
-            color: gold;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-            margin: 10px 0;
-            font-size: 1.4rem;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 450px;
-            margin-bottom: 100px;
-        }
-
-        .glass-card {
-            background: var(--glass-white);
-            border-radius: 30px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            animation: slideUp 0.6s forwards;
-            color: #1a2a44;
-        }
-
-        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-        .step-title {
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .opt-btn {
-            background: #fff;
-            border: 2px solid #eee;
-            border-radius: 20px;
-            padding: 20px 10px;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .opt-btn:active { transform: scale(0.9); }
-        .opt-btn.blue { border-bottom: 5px solid var(--neon-blue); }
-        .opt-btn.pink { border-bottom: 5px solid var(--neon-pink); }
-        .opt-btn i { font-size: 30px; margin-bottom: 10px; }
-
-        .hidden { display: none; }
-        select, .action-btn {
-            width: 100%;
-            padding: 15px;
-            border-radius: 15px;
-            border: 1px solid #ddd;
-            margin-top: 15px;
-            font-size: 1rem;
-        }
-
-        .action-btn {
-            background: #1a2a44;
-            color: white;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .schedule-row {
-            background: #f8f9fa;
-            border-right: 4px solid var(--neon-blue);
-            margin: 10px 0;
-            padding: 12px;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column; /* تغيير لتكون المواد تحت بعضها داخل نفس اليوم */
-            gap: 5px;
-        }
-
-        .day-label {
-            font-weight: bold;
-            color: #1a2a44;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 5px;
-            display: block;
-        }
-
-        .mat-item {
-            font-size: 0.95rem;
-            color: #444;
-        }
-
-    </style>
-</head>
-<body>
-
-    <div class="cyber-bg">
-        <div class="grid-line" style="width:1px; height:100px; left:20%;"></div>
-        <div class="grid-line" style="width:1px; height:150px; left:80%; animation-delay:2s;"></div>
-    </div>
-
-    <div class="header-section">
-        <div class="logos-row">
-            <div class="logo-box" style="border-color: var(--neon-pink);"><img src="SSQ.png" width="100%"></div>
-        </div>
-        <h1 class="title-text">المعهد العالي للعلوم و التقنية :- صبراتة</h1>
-        <p style="color: var(--neon-blue); margin: 0;">جدول المواد</p>
-    </div>
-
-    <div class="container">
-        <div class="glass-card">
-            
-            <div id="step1">
-                <div class="step-title">من فضلك اختر تخصصك الدراسي:</div>
-                <div class="options-grid">
-                    <div class="opt-btn blue" onclick="setMajor('العلوم الإدارية')">
-                        <i>💼</i><span>العلوم الإدارية</span>
-                    </div>
-                    <div class="opt-btn blue" onclick="setMajor('التقنية الكيميائية')">
-                        <i>🧪</i><span>التقنية الكيميائية</span>
-                    </div>
-                    <div class="opt-btn blue" onclick="setMajor('علوم الحاسوب')">
-                        <i>💻</i><span>علوم الحاسوب</span>
-                    </div>
-                    <div class="opt-btn pink" onclick="setMajor('التقنية الكهربائية')">
-                        <i>⚡</i><span>التقنية الكهربائية</span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="step2" class="hidden">
-                <div class="step-title" id="major-display"></div>
-                <label>اختر الفصل الدراسي:</label>
-                <select id="sem-select">
-                    <option value="1">السمستر الأول</option>
-                    <option value="2">السمستر الثاني</option>
-                    <option value="3">السمستر الثالث</option>
-                    <option value="4">السمستر الرابع</option>
-                    <option value="5">السمستر الخامس</option>
-                    <option value="6">السمستر السادس</option>
-                </select>
-                <button class="action-btn" onclick="showSchedule()">تأكيد الاختيار</button>
-            </div>
-
-            <div id="step3" class="hidden">
-                <div class="step-title" id="schedule-title"></div>
-                <div id="schedule-list"></div>
-                <button class="action-btn" style="background:#666;" onclick="location.reload()">رجوع للخلف</button>
-            </div>
-
-        </div>
-    </div>
-    
-    <script>
-const academicData = {
-    "علوم الحاسوب": {
-        "1": {
-            "A": {
-                "السبت": ["رياضة1 (09–11)"],
-                "الأحد": ["أساسيات هندسة كهربائية (09–11)", "أساسيات البرمجة (11–01)"],
-                "الإثنين": ["لغة إنجليزية2 (09–11)", "فيزياء (11–01)"],
-                "الثلاثاء": ["صحة وسلامة مهنية (11–01)"],
-                "الخميس": ["أساسيات الحاسب الآلي (09–11)", "لغة عربية ودراسات إسلامية (11–01)"]
-            },
-            "B": {
-                "الأحد": ["فيزياء (09–11)"],
-                "الإثنين": ["رياضة1 (11–01)"],
-                "الثلاثاء": ["صحة وسلامة مهنية (11–01)"],
-                "الأربعاء": ["أسس الهندسة الكهربائية (09–11)", "أساسيات برمجة (11–01)"],
-                "الخميس": ["أساسيات الحاسب الآلي (09–11)", "لغة عربية ودراسات إسلامية (11–01)"]
-            }
-        },
-        "2": {
-            "السبت": ["معمل- أنظمه رقمية(09–11)"],
-            "الأحد": ["لغة إنجليزية 2(09–11)", "أساسيات الشبكات (11–01)"],
-            "الثلاثاء": ["C++ (09–11)","رياضة2(11–01)"],
-            "الأربعاء": ["تطبيقات حاسوب 1(09–11)","معمل- اساسيات الشبكات(11–01)"],
-            "الخميس": ["قواعد بيانات 1 (09–11)", "معمل- قواعد بيانات 1(11–01)"]
-        },
-        "3": {
-            "السبت": ["معمل- حماية شبكات (09–11)"],
-            "الأحد": ["إنجليزي 3 (09–11)", "تطبيقات حاسوب 2 (11–01)"],
-            "الإثنين": ["قواعد بينات 2 (09–11)","معمل- قواعد بينات 2 (11–01)"],
-            "الثلاثاء": ["البرمجه المرئية 1 (11–01)"],
-            "الأربعاء": ["متطلبات حماية الشبكات (09–11)"],
-            "الخميس": ["تحليل وتصميم نظم (09–11)","برمجه شيئية (11–01)","برمجه شيئية (أ. هيثم + عبد الرؤوف)"]
-        },
-        "4": {
-           "الأحد": ["ADO.net(09 – 11)","ADO.net -معمل","إنجليزي 4 (01 – 03)"],
-           "الثلاثاء": ["مقدمة في برمجة الإنترنت (09 – 11)","تراكيب بيانات (11 – 01)","البرمجه المرئية 2 (01 – 03)"],
-           "الخميس": ["منهجية بحث (09 – 11)","هندسة البرمجيات (11 – 01)"]
-        },
-        "5": {
-           "الأحد": ["وسائط متعددة (09 – 11)","ألدعم الفني (11 – 01)"],
-           "الإثنين": ["أدارة مشاريع (09 – 11)","برمجة XML","معمل- برمجة XML"],
-           "الثلاثاء": ["مصطلحات فنية (11 – 01)"],
-           "الخميس": ["ألذكاء الإصطناعي (09 – 11)","معمل- ذكاء الإصطناعي (11 – 01)"]
-         },
-         "6": {
-            "الأربعاء": ["تنقيب بيانات (09 – 11)","معمل- تنقيب بيانات (11 – 01)"]
-         },
-        // يمكن إكمال باقي البيانات هنا بنفس التنسيق
-    },
-    "العلوم الإدارية": {
-        "1": {
-            "A": {
-                "السبت": ["أحصاء 1 (09–11)"],
-                "الأحد": ["رياضة1 (09–11)", "لغة عربية (11–01)"],
-                "الإثنين": ["معمل- أساسيات حاسب آلي (09–11)", "مبادئ اقتصاد (11–01)"],
-                "الثلاثاء": ["مبادئ إدارة أعمال (09–11)", "إنجليزي1 (11–01)"],
-                "الأربعاء": ["أساسيات حاسب آلي (09–11)", "مبادئ محاسبة1 (11–01)"]
-            },
-            "B": {
-                "الأحد": ["مبادئ إدارة أعمال (09–11)", "رياضة1 (11–01)"],
-                "الإثنين": ["إنجليزي1 (09–11)", "معمل- أساسيات حاسب آلي (11–01)"],
-                "الثلاثاء": ["أحصاء 1 (09–11)"],
-                "الأربعاء": ["مبادئ محاسبة1 (09–11)", "أساسيات حاسب آلي (11–01)"],
-                "الخميس": ["مبادئ اقتصاد (09–11)", "لغة عربية (11–01)"]     
-                }
-           },
-           "2": {
-              "الأحد": ["طرق بحث (09 – 11)","مبادئ تمويل (11 – 01)"],
-              "الإثنين": ["مبادئ محاسبة 2 (09 –11)","إنجليزي 2 (11 – 01)"],
-              "الثلاثاء": ["إحصاء 2 (11 – 01)"],
-              "الأربعاء": ["رياضة 2 (09 – 11)","علوم سلوكية (11 – 01)"]
-            },
-            "3": {
-              "الأحد": ["محاسبه متوسطة (09 – 11)","قواعد بيانات (11 – 01)"],
-              "الاثنين": ["ادارة مشتريات و مخازن (09 – 11)","قانون تجاري (11 – 01)"],
-              "الثلاثاء": ["إدارة موارد بشرية (09 – 11)","إدارة مكاتب (11 – 01)"],
-              "الأربعاء": ["معمل- قواعد بيانات (09 – 11)"],
-              "الخميس": ["ادارة مؤسسات مالية (09 – 11)","ادارة عمليات إنتاجية (11 – 01)"]
-            },
-            "4": {
-              "الأحد": ["نظرية المنظمة (09 – 11)","نظم معلومات (11 – 01)"],
-              "الإثنين": ["قانون ادارة 09 – 11)"],
-              "الثلاثاء": ["بحوث العمليات (09 – 11)","ادارة مالية (11 – 01)"],
-              "الأربعاء": ["إدارة تسويق (09 – 11)","دراسة جدوى (11 – 01)"],
-              "الخميس": ["سلوك تنظيمي"]
-             },
-             "5": {
-               "الأحد": ["ادارة الأزمات (09 – 11)"],
-               "الثلاثاء": ["ادارة استراتيجية (09 – 11)","ادارة دولية (11 – 01)"],
-               "الأربعاء": ["تطبيقات حديثة في الإدارة (09 – 11)","ادارة مشروعات (11 – 01)"],
-               "الخميس": ["محاسبة ادارية (09 – 11)","إدارة الجودة الشاملة (11 – 01)"]
-             },
-        },
-        "التقنية الكيميائية": {
-        "1": {
-          "A":{
-            "الأحد": ["رسم هندسي (09 – 11)","لغة عربية ودراسات إسلامية (01 – 03)"],
-            "الإثنين": ["إنجليزي 1 (09 – 11)","فيزياء (11 – 01)"],
-            "الثلاثاء": ["اساسيات حاسب ألي (09 – 11)","كيمياء عامة (11 – 01)","كيمياء عامة م (01 – 03)"],
-            "الأربعاء": ["رياضه 1 (11 – 01)"],
-            "الخميس": ["اساسيات حاسب ألي ن (09 – 11)","تقنية الورش (11 – 01)"]
-            },
-            "B":{
-            "الأحد": ["رسم هندسي (09 – 11)","لغة عربية ودراسات إسلامية (01 – 03)"],
-            "الإثنين": ["إنجليزي 1 (09 – 11)","فيزياء (11 – 01)"],
-            "الثلاثاء": ["اساسيات حاسب ألي (09 – 11)","كيمياء عامة (11 – 01)","كيمياء عامة م (01 – 03)"],
-            "الأربعاء": ["رياضه 1 (11 – 01)"],
-            "الخميس": ["اساسيات حاسب ألي ن (09 – 11)","تقنية الورش (11 – 01)"]
-            }
-          },
-            "2": {
-              "السبت": ["الإحصاء و الاحتمالات (09 – 11)","برمجة الحاسب (11 – 01)"],
-              "الأحد": ["كيمياء فيزيائية م (09 – 11)","رياضة 2 (11 – 01)","الصحة و السلامة المهنية (01 – 03)"],
-              "الإثنين": ["إنجليزي 2 (11 – 01)","كيمياء عضوية م (01 – 03)"],
-              "الثلاثاء": ["مقدمة هندسة كيميائية 1  (09 – 11)","الكيمياء العضوية (11 – 01)"],
-              "الأربعاء": ["كيمياء فيزيائية (11 – 01)"]
-              },
-            "3": {
-              "السبت": ["ميكانيكة الموائع (09 – 11)","أسس هـ كهربائية (11 – 01)"],
-              "الأحد": ["رياضة 3 (09 – 11)","كيكياء تحليليه وتحليل الي م (11 – 01)"],
-              "الإثنين": ["صناعات كيميائية (09 – 11)","مقدمة هندسة كيميائية (11 – 01)","إنجليزي 3 (01 – 03)"],
-              "الثلاثاء": ["ديناميكا حرارية (11 – 01)","ميكانيكا الموائع ، م (01 – 03)"],
-              "الأربعاء": ["كيمياء تحليلية وتحليل ألي (09 – 11)","أسس عندسة كهربائية (11 – 01)"]
-            },
-            "4": {
-              "الأحد": ["علم المواد والتأكل م (11 – 01)"],
-              "الإثنين": ["هندسة تكرير النفط و الغاز (11 – 01)","هندسة تكرير النفط و الغاز م (01 – 03)"],
-              "الثلاثاء": ["انتقال الحرارة (09 – 11)"],
-              "الأربعاء": ["صناعات بتروكيمياوية (09 – 11)","التحليل العددي وتطبيقاته (11 – 01)","علم المواد والتأكل م (01 – 03)"],
-              "الخميس": ["انتقال مادة (09 – 11)","هندسة تفاعلات كيميائية (11 – 01)"]
-       },
-           "5": {
-             "السبت": ["وحدات تشغيليه (09 – 11)","تصميم المصانع (11 – 01)","الإداره والاقتصاد الهندسي (01 – 03)"],
-             "الإثنين": ["تشغيل وصيانة العمليات الكيميائية (09 – 11)"],
-             "الثلاثاء": ["القياس والتحكم في العمليات الكيميائية (09 – 11)"],
-             "الأربعاء": ["التلوث الصناعي (09 – 11)","تحلية ومعالجة المياه (11 – 01)"],
-             "الخميس": ["تحلية ومعالجة المياه - م (01 – 03)"]
-           },
-     },
-     "التقنية الكهربائية": {
-     "1": {
-       "A": {
-         "السبت": ["معمل - اسس هندسة كهربائية (09 – 11)","رسم هندسي (11 – 01)"],
-         "الأحد": ["رسم هندسي (09 – 11)","فيزياء 1 (11 – 01)","لغة عربية ودراسات (01 – 03)"],
-         "الإثنين": ["رياضة 1 (09 – 11)","إنجليزي 1 (11 – 01)","فيزياء 1 (01 – 03)"],
-         "الثلاثاء": ["معمل - اساسيات حاسب (09 – 11)","تقنية ورش (11 – 01)","أسس هندسة كهربائية (01 – 03)"],
-         "الأربعاء": ["أسس هندسة كهربائية (09 – 11)","رياضة 1 (11 – 01)"],
-         "الخميس": ["تقنية ورش (09 – 11)","أساسيات حاسب ألي (11 – 01)"]
-      },
-        "B": {
-         "السبت": ["معمل - اسس هندسة كهربائية (09 – 11)","رسم هندسي (11 – 01)"],
-         "الأحد": ["رسم هندسي (09 – 11)","فيزياء 1 (11 – 01)","لغة عربية ودراسات (01 – 03)"],
-         "الإثنين": ["رياضة 1 (09 – 11)","إنجليزي 1 (11 – 01)","فيزياء 1 (01 – 03)"],
-         "الثلاثاء": ["معمل - اساسيات حاسب (09 – 11)","تقنية ورش (11 – 01)","أسس هندسة كهربائية (01 – 03)"],
-         "الأربعاء": ["أسس هندسة كهربائية (09 – 11)","رياضة 1 (11 – 01)"],
-         "الخميس": ["تقنية ورش (09 – 11)","أساسيات حاسب ألي (11 – 01)"]
-        }
-     },
-        "2": {
-        "السبت": ["تطبيقات حاسوب (09 – 11)","معمل - دوائر كهربائية (11 – 01)"],
-        "الأحد": ["دوائر كهربائية (09 – 11)","رياضة 2 (11 – 01)"],
-        "الإثنين": ["فيزياء 2 (09 – 11)","رياضة 2 (11 – 01)"],
-        "الثلاثاء": ["صحة وسلامة مهنية (09 – 11)","إنجليزي 2 (11 – 01)"],
-        "الأربعاء": ["مبادئ هندسة إلكترونية (09 – 11)","معمل - مبادئ إلكترونية (11 – 01)"],
-        "الخميس": ["تطبيقات حاسوب (09 – 11)","مبادئ هندسة الكترونيه (11 – 01)","دوائر كهربائية (01 – 03)"]
-        },
-        "3": {
-        "السبت": ["معمل - أجهزة قياس (09 – 11)","أنظمة قدرة 1 (11 – 01)"],
-        "الأحد": ["رياضة 3 (09 – 11)","أنظمة قدرة 1 (11 – 01)"],
-        "الإثنين": ["أنظمة رقمية (09 – 11)","معمل - أنظمة رقمية (11 – 01)"],
-        "الثلاثاء": ["مصطلحات انجليزية (09 – 11)","نظرية كهرومغناطيسية (11 – 01)"],
-        "الأربعاء": ["رياضة 3 (09 – 11)","أجهزة قياس كهربائية (11 – 01)"],
-        "الخميس": ["أجهزة قياس كهربائية (09 – 11)","نظرية كهرومغناطيسية (11 – 01)"]
-        },
-        "4": {
-        "السبت": ["إحصاء واحتمالات (09 – 11)","خطوة نقل القدرة (11 – 01)"],
-        "الأحد": ["أنظمة قدرة 2 (09 – 11)","خطوط نقل القدرة (11 – 01)"],
-        "الإثنين": ["عملي - أنظمة قدرة 2 (09 – 11)","ألات كهربائية (11 – 01)"],
-        "الثلاثاء": ["مبادئ تحكم ألي (09 – 11)","ميكانيكا موائع (11 – 01)"],
-        "الأربعاء": ["معمل - مبادئ تحكم ألي (09 – 11)","خطوط نقل القدرة (11 – 01)"],
-        "الخميس": ["الات كهربائية (09 – 11)","أنظمة قدرة 2 (11 – 01)"]
-        },
-        "5": {
-        "السبت": ["شبكات التوزيع الكهربائية (09 – 11)","طرق البحث العملي (11 – 01)"],
-        "الأحد": ["أجهزة حماية كهربائية (09 – 11)","تقنيات الجهد العالي (11 – 01)"],
-        "الإثنين": ["حاكمات دقيقة (09 – 11)","عملي - أجهزة حماية كهربائية (11 – 01)"],
-        "الثلاثاء": ["شبكات التوزيع الكهربائية (09 – 11)","تقنيات الجهد العالي (11 – 01)"],
-        "الأربعاء": ["الات كهربائية 2 (09 – 11)","أجهزة حماية كهربائية (11 – 01)","حاكمات دقيقة (01 – 03)"],
-        "الخميس": ["عملي - حاكمات دقيقة (09 – 11)","شبكات التوزيع الكهربائية (11 – 01)","عملي – الات كهربائية 2 (01 – 03)"]
-        },
-        "6": {
-        "السبت": ["أنظمة حماية كهربائية (11 – 01)","عملي - أنظمة حماية كهربائية (01 – 03)"],
-        "الأحد": ["محطات قوى (09 – 11)","طاقة متجددة (11 – 01)"],
-        "الإثنين": ["محطات قوى (11 – 01)","طاقات متجددة (01 – 03)"],
-        "الأربعاء": ["عملي - محطات قوى (11 – 01)","عملي - طاقات متجددة (01 – 03)"]
-        }
-      },
-        // يمكن إكمال باقي البيانات...
-};
-
-let selectedMajor = "";
-
-function setMajor(major) {
-    selectedMajor = major;
-    document.getElementById('major-display').innerText = `لقد اخترت: ${major}`;
-    document.getElementById('step1').classList.add('hidden');
-    document.getElementById('step2').classList.remove('hidden');
-}
-
-function showSchedule() {
-    const major = selectedMajor;
-    const sem = document.getElementById('sem-select').value;
-    let group = null;
-
-    if(sem === "1") {
-        group = prompt("اختر المجموعة (A أو B)");
-        if(!group || !academicData[major][sem][group]) {
-            alert("لا توجد بيانات لهذه المجموعة");
-            return;
-        }
-    }
-
-    document.getElementById('step2').classList.add('hidden');
-    document.getElementById('step3').classList.remove('hidden');
-
-    const scheduleDiv = document.getElementById('schedule-list');
-    scheduleDiv.innerHTML = "";
-
-    document.getElementById('schedule-title').innerText = (sem === "1") 
-        ? `جدول ${major} - م(${group}) - سيمستر ${sem}` 
-        : `جدول ${major} - سيمستر ${sem}`;
-
-    const days = ["السبت","الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس"];
-
-    days.forEach(day => {
-        let items = [];
-        if(sem === "1") {
-            items = academicData[major][sem][group][day] || [];
-        } else {
-            items = (academicData[major][sem] && academicData[major][sem][day]) ? academicData[major][sem][day] : [];
-        }
-
-        if(items.length > 0) {
-            // هنا التعديل: نضع اليوم مرة واحدة فقط ونضع تحته كل المواد
-            let materialsHtml = items.map(mat => `<div class="mat-item">• ${mat}</div>`).join('');
-            
-            scheduleDiv.innerHTML += `
-            <div class="schedule-row">
-                <span class="day-label">${day}</span>
-                ${materialsHtml}
-            </div>`;
-        }
-    });
-}
-    </script>
-</body>
-</html>
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>بوابة الطالب - المعهد العالي للعلوم والتقنية صبراتة</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet"><style>:root {  --bg0:#050913; --bg1:#0a1530; --bg2:#0d1e3f;  --cyan:#00f2ff; --pink:#ff00c1; --gold:#ffd24a;  --glass:#ffffff; --ink:#15213a; --ink-soft:#56637e;  --line:#e9edf5; --shadow:0 18px 40px rgba(3,8,20,.45);}* { box-sizing:border-box; font-family:'Cairo',sans-serif; }html,body{ margin:0; padding:0; background:var(--bg0); color:var(--ink); }body{ min-height:100vh; display:flex; flex-direction:column; align-items:center; overflow-x:hidden; }.icon{ width:1em; height:1em; display:inline-block; vertical-align:-0.15em; }.scene{ position:fixed; inset:0; z-index:-1; overflow:hidden;  background:    radial-gradient(60vw 60vw at 18% -10%, rgba(0,242,255,.16), transparent 60%),    radial-gradient(55vw 55vw at 100% 10%, rgba(255,0,193,.14), transparent 55%),    linear-gradient(180deg,var(--bg0),var(--bg1) 55%,var(--bg0));}.scene i{ position:absolute; border-radius:50%; background:radial-gradient(circle,rgba(255,255,255,.9),transparent 70%);  opacity:.5; animation:twinkle 5s ease-in-out infinite; }@keyframes twinkle{0%,100%{opacity:.15}50%{opacity:.7}}header.top{ width:100%; max-width:460px; padding:28px 20px 10px; text-align:center; }.logos-row{ display:flex; justify-content:center; gap:16px; margin-bottom:14px; }.logo-box{ width:72px; height:72px; background:#fff; border-radius:50%; border:2px solid var(--cyan);  box-shadow:0 0 18px rgba(0,242,255,.55); padding:8px; animation:float 3.2s ease-in-out infinite; }.logo-box img{ width:100%; height:100%; object-fit:contain; display:block; }@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}.inst-name{ color:var(--gold); font-weight:800; font-size:1.18rem; margin:4px 0 2px; text-shadow:0 0 16px rgba(255,210,74,.35); }.inst-sub{ color:var(--cyan); font-weight:600; font-size:.86rem; margin:0; opacity:.9; }.wrap{ width:100%; max-width:460px; padding:14px 16px 56px; flex:1; }.card{ background:var(--glass); border-radius:26px; padding:22px 18px; box-shadow:var(--shadow); position:relative; overflow:hidden; }.card::before{ content:""; position:absolute; inset:0 0 auto 0; height:4px;  background:linear-gradient(90deg,var(--cyan),var(--pink)); }.step{ animation:rise .45s cubic-bezier(.2,.8,.2,1); }.step.hidden{ display:none; }@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}.step-head{ display:flex; align-items:center; gap:10px; margin-bottom:16px; }.step-head .icon{ font-size:1.5rem; color:var(--cyan); }.step-head h2{ font-size:1.05rem; margin:0; font-weight:800; color:var(--ink); }.step-head p{ margin:2px 0 0; font-size:.78rem; color:var(--ink-soft); font-weight:600; }.grid2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }.tile{ --tc:#00f2ff; background:#fff; border:1.5px solid var(--line); border-radius:18px; padding:18px 10px 14px;  cursor:pointer; display:flex; flex-direction:column; align-items:center; text-align:center; gap:6px;  transition:transform .15s, box-shadow .15s, border-color .15s; }.tile:active{ transform:scale(.95); }.tile:hover{ border-color:var(--tc); box-shadow:0 10px 24px -8px color-mix(in srgb, var(--tc) 55%, transparent); }.tile-ic{ width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center;  background:color-mix(in srgb, var(--tc) 14%, white); color:var(--tc); font-size:1.4rem; }.tile-name{ font-weight:800; font-size:.92rem; color:var(--ink); }.tile-desc{ font-size:.68rem; color:var(--ink-soft); font-weight:600; line-height:1.3; }.opt-wide{ display:flex; align-items:center; gap:14px; width:100%; background:#fff; border:1.5px solid var(--line);  border-radius:18px; padding:16px; cursor:pointer; text-align:right; margin-bottom:12px; transition:.15s; }.opt-wide:active{ transform:scale(.97); }.opt-wide .tile-ic{ flex-shrink:0; }.opt-wide .ow-txt{ flex:1; }.opt-wide .ow-txt b{ display:block; font-size:.95rem; color:var(--ink); }.opt-wide .ow-txt span{ font-size:.74rem; color:var(--ink-soft); font-weight:600; }select.sem-select{ width:100%; padding:14px 16px; border-radius:16px; border:1.5px solid var(--line);  margin-top:4px; font-size:.95rem; font-weight:700; color:var(--ink); background:#fff; appearance:none;  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2356637e' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");  background-repeat:no-repeat; background-position:left 14px center; }.btn-main{ width:100%; padding:15px; border-radius:16px; border:none; margin-top:16px; font-size:.95rem; font-weight:800;  color:#07121f; background:linear-gradient(90deg,var(--cyan),#5fd9ff); cursor:pointer; display:flex; align-items:center;  justify-content:center; gap:8px; box-shadow:0 10px 24px -8px rgba(0,242,255,.55); transition:.15s; }.btn-main:active{ transform:scale(.97); }.btn-ghost{ width:100%; padding:13px; border-radius:16px; border:1.5px solid var(--line); margin-top:10px;  font-size:.85rem; font-weight:700; color:var(--ink-soft); background:#fff; cursor:pointer; display:flex;  align-items:center; justify-content:center; gap:8px; }.btn-ghost .icon{ transform:scaleX(-1); }.pickrow{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:6px; }.avatar-card{ background:#fff; border:1.5px solid var(--line); border-radius:20px; padding:14px 10px 12px;  display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; transition:.15s; }.avatar-card:active{ transform:scale(.95); }.avatar-card.active{ border-color:var(--ac); box-shadow:0 0 0 3px color-mix(in srgb, var(--ac) 30%, transparent); }.avatar-card .av-wrap{ width:64px; height:64px; }.avatar-card .av-wrap .avatar{ width:100%; height:100%; color:var(--ac); filter:drop-shadow(0 4px 10px color-mix(in srgb, var(--ac) 45%, transparent)); }.avatar-card .av-wrap .avatar .ring{ fill:none; stroke:currentColor; stroke-width:3; opacity:.9; }.avatar-card b{ font-size:.88rem; color:var(--ink); }.avatar-card span{ font-size:.7rem; color:var(--ink-soft); font-weight:700; }.avatar-card small{ font-size:.64rem; color:var(--ink-soft); opacity:.8; }.track-card{ --tc:#00f2ff; background:#fff; border:1.5px solid var(--line); border-radius:20px; padding:16px 12px;  display:flex; align-items:center; gap:12px; cursor:pointer; margin-bottom:10px; transition:.15s; }.track-card:active{ transform:scale(.97); }.track-card .tile-ic{ width:42px; height:42px; font-size:1.25rem; flex-shrink:0; }.track-card b{ font-size:.88rem; display:block; color:var(--ink); }.track-card span{ font-size:.7rem; color:var(--ink-soft); font-weight:600; }.sub-label{ font-size:.78rem; font-weight:700; color:var(--ink-soft); margin:14px 0 8px; }.sched-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; gap:10px; }.sched-head .sh-title{ font-weight:800; font-size:.98rem; color:var(--ink); }.sched-head .sh-sub{ font-size:.72rem; color:var(--ink-soft); font-weight:700; }.sched-head .sh-badge{ width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center;  background:color-mix(in srgb, var(--mc,#00f2ff) 15%, white); color:var(--mc,#00f2ff); font-size:1.2rem; flex-shrink:0; }.day-block{ margin-bottom:14px; border-radius:18px; overflow:hidden; border:1.5px solid var(--line); }.day-title{ background:linear-gradient(90deg,#16213f,#1d2b52); color:#fff; padding:9px 14px; font-weight:800; font-size:.84rem;  display:flex; align-items:center; gap:8px; }.day-title .icon{ color:var(--cyan); }.period-row{ display:flex; gap:10px; align-items:flex-start; padding:10px 14px; border-top:1px solid var(--line); background:#fff; }.period-row:first-of-type{ border-top:none; }.period-row .pr-time{ flex-shrink:0; width:92px; font-size:.72rem; font-weight:800; color:var(--mc,#1f8fa6);  display:flex; align-items:center; gap:5px; padding-top:1px; }.pr-time .tval, .ltr-num{ direction:ltr; unicode-bidi:isolate; display:inline-block; }.period-row .pr-main{ flex:1; }.period-row .pr-subj{ font-weight:800; font-size:.86rem; color:var(--ink); }.period-row .pr-inst{ font-size:.72rem; color:var(--ink-soft); font-weight:600; margin-top:2px; }.day-empty{ padding:14px; text-align:center; color:var(--ink-soft); font-size:.76rem; font-weight:600; background:#fff;  display:flex; align-items:center; justify-content:center; gap:7px; }.day-empty .icon{ opacity:.5; }footer.foot{ text-align:center; color:#5a6b90; font-size:.68rem; padding:10px 20px 26px; font-weight:600; }</style></head><body><div class="scene" id="scene"></div><header class="top">  <div class="logos-row"><div class="logo-box"><img src="SSQ.png" alt="شعار المعهد" onerror="this.style.display='none'"></div></div>  <h1 class="inst-name">المعهد العالي للعلوم والتقنية — صبراتة</h1>  <p class="inst-sub">بوابة الجداول الدراسية</p></header><main class="wrap">  <div class="card">    <section class="step" id="step0">      <div class="step-head">        <span class="icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 8l10 5 8-4.2V15h1.6V8z"/><path d="M6 11.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5" fill="none"/></svg></span>        <div><h2>مرحباً بك في بوابة الجداول</h2><p>اختر نوع الجدول الذي تريد عرضه</p></div>      </div>      <button class="opt-wide" style="--tc:var(--cyan)" onclick="goAcademic()">        <span class="tile-ic"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H12v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H12v16h5.5a2.5 2.5 0 0 1 2.5 2.5z"/></svg></span>        <span class="ow-txt"><b>الجدول الدراسي</b><span>مواعيد المحاضرات والمعامل</span></span>      </button>      <button class="opt-wide" style="--tc:var(--pink)" onclick="goExams()">        <span class="tile-ic" style="color:var(--pink);background:color-mix(in srgb,var(--pink) 14%,white)"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3h6v3H9z"/><path d="m8.5 13 2.3 2.3L15.5 11"/></svg></span>        <span class="ow-txt"><b>جدول الامتحانات</b><span>مواعيد ومكان الاختبارات</span></span>      </button>    </section>    <section class="step hidden" id="step1">      <div class="step-head">        <span class="icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8.5" cy="8" r="3.2"/><path d="M2.8 19c.6-3.4 3-5.3 5.7-5.3s5.1 1.9 5.7 5.3"/><circle cx="17" cy="9" r="2.6"/><path d="M15.3 13.8c2.2.3 3.9 2 4.4 4.9" /></svg></span>        <div><h2>اختر تخصصك الدراسي</h2><p>سيُبنى الجدول حسب القسم والفصل</p></div>      </div>      <div class="grid2"><button class="tile" style="--tc:#00f2ff" onclick="selectMajor('علوم الحاسوب')">  <span class="tile-ic"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="10.5" rx="1.5"/><path d="M2.5 19.5h19"/><path d="M9 19.5l.6-3.5h4.8l.6 3.5"/></svg></span>  <span class="tile-name">علوم الحاسوب</span>  <span class="tile-desc">برمجة، شبكات، قواعد بيانات</span></button><button class="tile" style="--tc:#ffcc33" onclick="selectMajor('التقنية الكهربائية')">  <span class="tile-ic"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.8 2 5 13.5h5.5L10.2 22 19 9.8h-5.7z"/></svg></span>  <span class="tile-name">التقنية الكهربائية</span>  <span class="tile-desc">دوائر، أنظمة قدرة، اتصالات</span></button><button class="tile" style="--tc:#35e0a1" onclick="selectMajor('التقنية الكيميائية')">  <span class="tile-ic"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 3h5"/><path d="M10.5 3v6.2L5.3 18a2 2 0 0 0 1.8 3h9.8a2 2 0 0 0 1.8-3l-5.2-8.8V3"/><path d="M8 15h8"/></svg></span>  <span class="tile-name">التقنية الكيميائية</span>  <span class="tile-desc">هندسة كيميائية، مختبرات</span></button><button class="tile" style="--tc:#ff00c1" onclick="selectMajor('العلوم الإدارية')">  <span class="tile-ic"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7.5" width="18" height="12" rx="2"/><path d="M8 7.5V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1.5"/><path d="M3 12.5h18"/></svg></span>  <span class="tile-name">العلوم الإدارية</span>  <span class="tile-desc">إدارة، محاسبة، اقتصاد</span></button></div>      <button class="btn-ghost" onclick="showStep('step0')"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg> رجوع</button>    </section>    <section class="step hidden" id="step2">      <div class="step-head">        <span class="icon" id="s2-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H12v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H12v16h5.5a2.5 2.5 0 0 1 2.5 2.5z"/></svg></span>        <div><h2 id="s2-major">—</h2><p>اختر الفصل الدراسي</p></div>      </div>      <select id="sem-select" class="sem-select" onchange="onSemChange()"></select>      <div id="sub-picker"></div>      <button class="btn-main" id="confirm-btn" onclick="confirmSchedule()">عرض الجدول <svg class="icon flip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>      <button class="btn-ghost" onclick="showStep('step1')"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg> رجوع</button>    </section>    <section class="step hidden" id="step3">      <div class="sched-head">        <div>          <div class="sh-title" id="s3-title">—</div>          <div class="sh-sub" id="s3-sub">—</div>        </div>        <div class="sh-badge" id="s3-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 8l10 5 8-4.2V15h1.6V8z"/><path d="M6 11.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5" fill="none"/></svg></div>      </div>      <div id="schedule-list"></div>      <button class="btn-ghost" onclick="showStep('step2')"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg> تغيير الفصل</button>    </section>  </div></main><footer class="foot">قسم تقنية المعلومات · خريف 2026/2027</footer><script>const DATA = {"التقنية الكهربائية": {"1": {"mode": "single", "days": {"السبت": [{"t": "08:30 – 10:30", "s": "معمل أسس هندسة كهربائية", "i": "م. فطيطمة الرقيبي"}, {"t": "10:30 – 12:30", "s": "معمل فيزياء 1", "i": "أ. فادية الغرياني"}], "الأحد": [{"t": "08:30 – 10:30", "s": "رسم هندسي", "i": ""}], "الإثنين": [{"t": "08:30 – 10:30", "s": "معمل أساسيات حاسب", "i": "م. عواطف ابوالجام"}, {"t": "10:30 – 12:30", "s": "فيزياء 1", "i": "أ. فادية الغرياني"}], "الثلاثاء": [{"t": "08:30 – 10:30", "s": "رياضة 1", "i": "أ. مروة عبدالفتاح"}, {"t": "10:30 – 12:30", "s": "لغة عربية ودراسات إسلامية", "i": "أ. انتصار البسكري"}], "الأربعاء": [{"t": "08:30 – 10:30", "s": "أسس هندسة كهربائية", "i": "أ. فادية الغرياني"}, {"t": "10:30 – 11:30", "s": "رياضة 1", "i": "أ. مروة عبدالفتاح"}, {"t": "11:30 – 01:30", "s": "لغة انجليزية", "i": "أ. عواطف عامر"}], "الخميس": [{"t": "08:30 – 10:30", "s": "تقنية ورش", "i": "(الأستاذ غير محدد)"}, {"t": "10:30 – 12:30", "s": "أساسيات حاسب آلي", "i": "أ. فادية الغرياني"}]}}, "2": {"mode": "single", "days": {"السبت": [{"t": "08:30 – 10:30", "s": "تطبيقات حاسوب", "i": "د. جمعه ابوعجيلة"}], "الأحد": [{"t": "08:30 – 10:30", "s": "معمل دوائر كهربائية", "i": "م. انس بشير"}, {"t": "10:30 – 12:30", "s": "رياضة 2", "i": "أ. جميلة اوشاح"}], "الإثنين": [{"t": "08:30 – 10:30", "s": "دوائر كهربائية", "i": "ا. امل الجمل"}, {"t": "10:30 – 11:30", "s": "رياضة 2", "i": "أ. جميلة اوشاح"}], "الثلاثاء": [{"t": "08:30 – 11:30", "s": "فيزياء 2", "i": "أ. خالد الكار"}, {"t": "11:30 – 01:30", "s": "صحة وسلامة مهنية", "i": ""}], "الأربعاء": [{"t": "08:30 – 10:30", "s": "مبادئ هندسة إلكترونية", "i": "أ. عبدالله علي سالم"}, {"t": "10:30 – 12:30", "s": "معمل مبادئ إلكترونية", "i": "م. عواطف ابوالجام"}], "الخميس": [{"t": "08:30 – 10:30", "s": "تطبيقات حاسوب", "i": "د. جمعه ابوعجيلة"}, {"t": "10:30 – 11:30", "s": "دوائر كهربائية", "i": "ا. امل الجمل"}, {"t": "11:30 – 12:30", "s": "مبادئ هندسة إلكترونية", "i": "أ. عبدالله علي سالم"}]}}, "3": {"mode": "tracks", "tracks": {"تقنية الاتصالات": {"السبت": [{"t": "08:30 – 10:30", "s": "معمل أنظمة رقمية", "i": "م. خولة كاموكا"}, {"t": "10:30 – 12:30", "s": "معمل دوائر إلكترونية 1", "i": "م. فطيطمة الرقيبي"}], "الأحد": [{"t": "08:30 – 10:30", "s": "رياضة 3", "i": "أ. جميلة اوشاح"}, {"t": "10:30 – 12:30", "s": "دوائر إلكترونية مطبوعة", "i": "(الأستاذ غير محدد)"}], "الإثنين": [{"t": "08:30 – 10:30", "s": "دوائر إلكترونية 1", "i": "أ. انس بشير"}, {"t": "10:30 – 12:30", "s": "مصطلحات انجليزية 1", "i": "أ. عواطف عامر"}], "الثلاثاء": [{"t": "08:30 – 10:30", "s": "أنظمة رقمية", "i": "أ. عبدالفتاح الفراح"}, {"t": "10:30 – 12:30", "s": "دوائر إلكترونية مطبوعة", "i": "(الأستاذ غير محدد)"}], "الأربعاء": [{"t": "10:30 – 12:30", "s": "إشارات ونظم", "i": "أ. وفاء الدريدي"}], "الخميس": [{"t": "08:30 – 10:30", "s": "إشارات ونظم", "i": "أ. وفاء الدريدي"}, {"t": "10:30 – 11:30", "s": "رياضة 3", "i": "أ. جميلة اوشاح"}]}, "أنظمة القدرة": {"السبت": [{"t": "08:30 – 10:30", "s": "معمل أنظمة رقمية", "i": "م. خولة كاموكا"}, {"t": "10:30 – 12:30", "s": "أنظمة قدرة 1", "i": "د. جمعه ابوعجيلة"}], "الأحد": [{"t": "08:30 – 10:30", "s": "رياضة 3", "i": "أ. جميلة اوشاح"}, {"t": "10:30 – 11:30", "s": "أنظمة قدرة 1", "i": "د. جمعه ابوعجيلة"}], "الإثنين": [{"t": "08:30 – 10:30", "s": "نظرية كهرومغناطيسية", "i": "أ. فادية الغرياني"}, {"t": "10:30 – 12:30", "s": "مصطلحات انجليزية 1", "i": "أ. عواطف عامر"}], "الثلاثاء": [{"t": "08:30 – 10:30", "s": "أنظمة رقمية", "i": "أ. عبدالفتاح الفراح"}, {"t": "10:30 – 12:30", "s": "معمل أجهزة قياس", "i": "م. خولة كاموكا"}], "الأربعاء": [{"t": "08:30 – 11:30", "s": "أجهزة قياس كهربائية", "i": "ا. امل الجمل"}, {"t": "11:30 – 12:30", "s": "نظرية كهرومغناطيسية", "i": "أ. فادية الغرياني"}], "الخميس": [{"t": "08:30 – 10:30", "s": "أجهزة قياس كهربائية", "i": "ا. امل الجمل"}, {"t": "10:30 – 11:30", "s": "رياضة 3", "i": "أ. جميلة اوشاح"}, {"t": "12:30 – 02:30", "s": "معمل أنظمة قدرة 1", "i": ""}]}}}, "4": {"mode": "tracks", "tracks": {"تقنية الاتصالات": {"السبت": [{"t": "08:30 – 10:30", "s": "إحصاء واحتمالات", "i": "أ. فتحي المدهون"}, {"t": "10:30 – 12:30", "s": "معمل أجهزة قياس", "i": "م. خولة كاموكا"}, {"t": "12:30 – 02:30", "s": "معمل دوائر إلكترونية 2", "i": "م. بدور الجمل"}], "الأحد": [{"t": "08:30 – 10:30", "s": "مبادئ الاتصالات", "i": "(الأستاذ غير محدد)"}, {"t": "10:30 – 12:30", "s": "دوائر إلكترونية 2", "i": "م. انس بشير"}], "الإثنين": [{"t": "08:30 – 10:30", "s": "نظرية كهرومغناطيسية", "i": "أ. فادية الغرياني"}, {"t": "10:30 – 12:30", "s": "مبادئ الاتصالات", "i": "(الأستاذ غير محدد)"}], "الثلاثاء": [{"t": "08:30 – 11:30", "s": "مبادئ تحكم آلي", "i": "أ. منى والي"}, {"t": "11:30 – 01:30", "s": "معمل مبادئ تحكم آلي", "i": "أ. منى والي"}], "الأربعاء": [{"t": "08:30 – 11:30", "s": "أجهزة قياس كهربائية", "i": "ا. امل الجمل"}, {"t": "11:30 – 12:30", "s": "دوائر إلكترونية 2", "i": "م. انس بشير"}], "الخميس": [{"t": "08:30 – 11:30", "s": "إلكترونيات رقمية", "i": "أ. منى والي"}, {"t": "11:30 – 01:30", "s": "معمل إلكترونيات رقمية", "i": "أ. منى والي"}]}, "أنظمة القدرة": {"السبت": [{"t": "08:30 – 10:30", "s": "إحصاء واحتمالات", "i": "أ. فتحي المدهون"}, {"t": "10:30 – 12:30", "s": "خطوط نقل القدرة", "i": "أ. مولود كنان"}, {"t": "12:30 – 02:30", "s": "ميكانيكا موانع", "i": "أ. خيري بنوبة"}], "الأحد": [{"t": "08:30 – 10:30", "s": "أنظمة قدرة 2", "i": "أ. مولود كنان"}, {"t": "10:30 – 12:30", "s": "خطوط نقل القدرة", "i": "أ. مولود كنان"}], "الإثنين": [{"t": "08:30 – 10:30", "s": "الكترونات قدرة", "i": "أ. خالد الكار"}, {"t": "10:30 – 12:30", "s": "آلات كهربائية 1", "i": "ا. امل الجمل"}], "الثلاثاء": [{"t": "08:30 – 11:30", "s": "مبادئ تحكم آلي", "i": "أ. منى والي"}, {"t": "11:30 – 01:30", "s": "معمل مبادئ تحكم آلي", "i": "أ. منى والي"}], "الأربعاء": [{"t": "08:30 – 10:30", "s": "أنظمة قدرة 2", "i": "أ. مولود كنان"}, {"t": "10:30 – 11:30", "s": "آلات كهربائية 1", "i": "ا. امل الجمل"}, {"t": "11:30 – 01:30", "s": "أنظمة قدرة 2", "i": "أ. مولود كنان"}], "الخميس": [{"t": "08:30 – 10:30", "s": "معمل آلات كهربائية 1", "i": "ا. امل الجمل"}, {"t": "10:30 – 11:30", "s": "الكترونات قدرة", "i": "أ. خالد الكار"}, {"t": "11:30 – 01:30", "s": "آلات كهربائية 1", "i": "ا. امل الجمل"}]}}}, "5": {"mode": "tracks", "tracks": {"أنظمة القدرة": {"السبت": [{"t": "08:30 – 10:30", "s": "شبكات التوزيع الكهربائية", "i": ""}, {"t": "12:30 – 01:30", "s": "آلات كهربائية 2", "i": "د. جمعه ابوعجيلة"}], "الأحد": [{"t": "08:30 – 10:30", "s": "أجهزة حماية كهربائية", "i": ""}, {"t": "10:30 – 12:30", "s": "تقنيات الجهد العالي", "i": ""}], "الإثنين": [{"t": "08:30 – 11:30", "s": "حاكمات دقيقة", "i": ""}, {"t": "11:30 – 01:30", "s": "حاكمات دقيقة – عملي", "i": ""}], "الثلاثاء": [{"t": "08:30 – 09:30", "s": "شبكات التوزيع الكهربائية", "i": ""}, {"t": "09:30 – 10:30", "s": "تقنيات الجهد العالي", "i": ""}], "الأربعاء": [{"t": "08:30 – 10:30", "s": "آلات كهربائية 2", "i": ""}], "الخميس": [{"t": "08:30 – 10:30", "s": "طرق البحث العلمي", "i": ""}, {"t": "10:30 – 11:30", "s": "شبكات التوزيع الكهربائية", "i": ""}, {"t": "11:30 – 01:30", "s": "آلات كهربائية 2 – عملي", "i": ""}]}}}, "6": {"mode": "tracks", "tracks": {"أنظمة القدرة": {"السبت": [{"t": "10:30 – 12:30", "s": "أنظمة حماية كهربائية", "i": "ا. امل الجمل"}, {"t": "12:30 – 02:30", "s": "أنظمة حماية كهربائية – عملي", "i": "ا. امل الجمل"}], "الأحد": [{"t": "08:30 – 10:30", "s": "محطات قوى", "i": "أ. خالد الكار"}, {"t": "10:30 – 12:30", "s": "محطات قوى – عملي", "i": "أ. خالد الكار"}], "الإثنين": [{"t": "08:30 – 10:30", "s": "طاقات متجددة", "i": "أ. منى والي"}, {"t": "10:30 – 12:30", "s": "طاقات متجددة – عملي", "i": "أ. منى والي"}], "الثلاثاء": [], "الأربعاء": [{"t": "09:30 – 08:30", "s": "محطات قوى", "i": "أ. خالد الكار"}, {"t": "10:30 – 09:30", "s": "طاقات متجددة", "i": "أ. منى والي"}]}}}}, "علوم الحاسوب": {"1": {"mode": "groups", "A": {"السبت": [{"t": "8:30 – 10:30", "s": "أساسيات الحاسب – معمل", "i": "م. سناء"}, {"t": "10:30 – 12:30", "s": "لغة عربية ودراسات إسلامية", "i": "أ. إنتصار البسكري"}], "الأحد": [{"t": "8:30 – 10:30", "s": "فيزياء", "i": "د. عبدالباسط"}, {"t": "10:30 – 12:30", "s": "أساسيات البرمجة", "i": "أ. هيفاء الغول"}], "الإثنين": [{"t": "8:30 – 10:30", "s": "لغة انجليزية", "i": "أ. حمزة عبدالسلام"}, {"t": "10:30 – 12:30", "s": "أسس الهندسة الكهربائية – معمل", "i": "د. جمعة كشكوش"}], "الثلاثاء": [{"t": "8:30 – 10:30", "s": "رياضة 1", "i": "أ. جميلة اوشاح"}, {"t": "10:30 – 12:30", "s": "أسس الهندسة الكهربائية", "i": "د. جمعة كشكوش"}], "الأربعاء": [{"t": "8:30 – 12:30", "s": "صحة وسلامة مهنية", "i": ""}], "الخميس": [{"t": "8:30 – 10:30", "s": "أساسيات الحاسب – نظري", "i": "أ. عبدالرؤوف ابولجام"}]}, "B": {"السبت": [{"t": "8:30 – 10:30", "s": "أساسيات الحاسب – معمل", "i": "م. سناء"}], "الأحد": [{"t": "8:30 – 10:30", "s": "أساسيات البرمجة", "i": "أ. هيفاء الغول"}, {"t": "10:30 – 12:30", "s": "فيزياء", "i": "د. عبدالباسط"}], "الإثنين": [{"t": "8:30 – 10:30", "s": "لغة انجليزية", "i": "أ. حمزة عبدالسلام"}, {"t": "10:30 – 12:30", "s": "أسس الهندسة الكهربائية – معمل", "i": "د. جمعة كشكوش"}], "الثلاثاء": [{"t": "8:30 – 10:30", "s": "أسس الهندسة الكهربائية", "i": "د. جمعة كشكوش"}, {"t": "10:30 – 12:30", "s": "رياضة 1", "i": "أ. جميلة اوشاح"}], "الأربعاء": [{"t": "8:30 – 12:30", "s": "صحة وسلامة مهنية", "i": ""}], "الخميس": [{"t": "8:30 – 10:30", "s": "أساسيات الحاسب – نظري", "i": "أ. عبدالرؤوف ابولجام"}, {"t": "10:30 – 12:30", "s": "لغة عربية ودراسات إسلامية", "i": "أ. إنتصار البسكري"}]}}, "2": {"mode": "single", "days": {"السبت": [], "الأحد": [{"t": "8:30 – 10:30", "s": "قواعد بيانات 1", "i": "أ. وفاء الدريدي"}, {"t": "10:30 – 12:30", "s": "لغة انجليزية 2", "i": "أ. حمزة"}], "الإثنين": [{"t": "8:30 – 10:30", "s": "البرمجة بلغة ++C", "i": "أ. عبدالله الدباشي"}, {"t": "10:30 – 12:30", "s": "قواعد بيانات 1 – معمل", "i": "م. سناء"}], "الثلاثاء": [{"t": "8:30 – 10:30", "s": "أنظمة رقمية", "i": "أ. عبدالفتاح الفراح"}, {"t": "10:30 – 12:30", "s": "معمل البرمجة بلغة ++C", "i": "م. حنين + أ. عبدالله الدباشي"}], "الأربعاء": [{"t": "8:30 – 10:30", "s": "تطبيقات حاسوب", "i": "م. شهيرة"}, {"t": "10:30 – 12:30", "s": "معمل أساسيات الشبكات", "i": "أ. هيثم + م. شهيرة"}], "الخميس": [{"t": "8:30 – 10:30", "s": "أساسيات الشبكات", "i": "أ هيثم الفهري"}, {"t": "10:30 – 12:30", "s": "رياضة 2", "i": "أ. مروة"}]}}, "3": {"mode": "single", "days": {"السبت": [], "الأحد": [{"t": "8:30 – 10:30", "s": "لغة انجليزية 3", "i": "أ. عواطف عامر"}, {"t": "10:30 – 12:30", "s": "تطبيقات حاسوب 2", "i": "م. حنين السائح"}], "الإثنين": [{"t": "8:30 – 10:30", "s": "قواعد بيانات 2", "i": "أ. هيثم الفهري"}, {"t": "10:30 – 12:30", "s": "البرمجة المرئية 1", "i": "م. ملاك"}], "الثلاثاء": [{"t": "8:30 – 10:30", "s": "تحليل وتصميم نظم", "i": "أ. أنور عمارة"}, {"t": "10:30 – 12:30", "s": "معمل قواعد بيانات 2", "i": "أ. هيثم + م. ملاك"}], "الأربعاء": [{"t": "8:30 – 10:30", "s": "متطلبات حماية الشبكات", "i": "أ. هيثم الفهري"}, {"t": "10:30 – 12:30", "s": "معمل البرمجة المرئية 1", "i": "م. ملاك"}], "الخميس": [{"t": "8:30 – 10:30", "s": "برمجة شيئية", "i": "أ. عبدالرؤوف ابولجام"}, {"t": "10:30 – 12:30", "s": "معمل متطلبات حماية الشبكات", "i": "أ. هيثم + م. ملاك"}]}}, "4": {"mode": "single", "days": {"السبت": [], "الأحد": [{"t": "8:30 – 10:30", "s": "ADO.net – معمل", "i": "أ. هيفاء الغول"}, {"t": "10:30 – 12:30", "s": "لغة انجليزية 4", "i": "أ. حمزة عبدالسلام"}], "الإثنين": [{"t": "8:30 – 10:30", "s": "ADO.net", "i": "أ. هيفاء الغول"}, {"t": "10:30 – 12:30", "s": "مقدمة في برمجة الأنترنت – معمل", "i": "أ. علي الصغير"}], "الثلاثاء": [{"t": "8:30 – 10:30", "s": "مقدمة في برمجة الأنترنت", "i": "أ. علي الصغير"}, {"t": "10:30 – 12:30", "s": "تراكيب بيانات", "i": "أ. عبدالرؤوف ابولجام"}], "الأربعاء": [{"t": "8:30 – 10:30", "s": "البرمجة المرئية 2", "i": "أ. عبدالله الدباشي"}, {"t": "10:30 – 12:30", "s": "البرمجة المرئية 2 – معمل", "i": "أ. عبدالله الدباشي"}], "الخميس": [{"t": "8:30 – 10:30", "s": "منهجية بحث", "i": "أ. علي الحسيني"}, {"t": "10:30 – 12:30", "s": "هندسة البرمجيات", "i": "أ. أنور عمارة"}]}}, "5": {"mode": "single", "days": {"السبت": [], "الأحد": [{"t": "8:30 – 10:30", "s": "التجارة الإلكترونية", "i": "أ. عبدالله الدباشي"}], "الإثنين": [{"t": "8:30 – 10:30", "s": "إدارة مشاريع", "i": "أ. أحمد الكار"}, {"t": "10:30 – 12:30", "s": "وسائط متعددة", "i": "أ. هيفاء"}, {"t": "12:30 – 2:30", "s": "معمل وسائط متعددة", "i": "أ. هيفاء"}], "الثلاثاء": [{"t": "8:30 – 10:30", "s": "معمل الدعم الفني", "i": "أ. وفاء الدريدي"}, {"t": "10:30 – 12:30", "s": "مصطلحات فنية", "i": "أ. عواطف عامر"}], "الأربعاء": [{"t": "10:30 – 12:30", "s": "الدعم الفني", "i": "أ. وفاء الدريدي"}], "الخميس": [{"t": "10:30 – 12:30", "s": "برمجة XML", "i": "أ. خواطر"}]}}, "6": {"mode": "single", "days": {"السبت": [], "الأحد": [], "الإثنين": [], "الثلاثاء": [], "الأربعاء": [{"t": "10:30 – 12:30", "s": "تنقيب بيانات", "i": "أ. هيفاء الغول"}], "الخميس": []}}}, "التقنية الكيميائية": {"1": {"mode": "single", "days": {"السبت": [{"t": "8:30 – 10:30", "s": "الفيزياء", "i": "أ. فادية الغرياني"}, {"t": "10:30 – 12:30", "s": "لغة عربية ودراسات إسلامية", "i": "أ. انتصار البسكري"}, {"t": "12:30 – 2:30", "s": "أساسيات حاسب آلي – معمل", "i": "م. عواطف ابولجام"}], "الأحد": [{"t": "8:30 – 10:30", "s": "تقنية الورش", "i": "د. أحمد كريديغ"}, {"t": "10:30 – 12:30", "s": "رسم هندسي", "i": ""}], "الإثنين": [{"t": "10:30 – 12:30", "s": "رياضة 1", "i": "أ. جميلة اوشاح"}], "الثلاثاء": [{"t": "10:30 – 12:30", "s": "كيمياء عامة", "i": "أ. زهرة أبوقرين"}, {"t": "12:30 – 2:30", "s": "كيمياء عامة – معمل", "i": "م. خالد مصباح"}], "الأربعاء": [{"t": "8:30 – 10:30", "s": "الفيزياء – نظري", "i": "أ. فادية الغرياني"}, {"t": "11:00 – 12:00", "s": "رياضة 1", "i": "أ. جميلة اوشاح"}, {"t": "12:00 – 14:00", "s": "لغة انجليزية 1", "i": "أ. عواطف عامر"}], "الخميس": [{"t": "8:30 – 10:30", "s": "أساسيات حاسب آلي – نظري", "i": "أ. فادية الغرياني"}]}}, "2": {"mode": "single", "days": {"السبت": [{"t": "8:30 – 10:30", "s": "مقدمة هندسة كيميائية 1", "i": "أ. فتحي عبداللطيف"}, {"t": "10:30 – 12:30", "s": "الإحصاء والاحتمالات", "i": "أ. فتحي المدهوني"}], "الأحد": [{"t": "8:30 – 10:30", "s": "الصحة والسلامة المهنية", "i": ""}, {"t": "10:30 – 12:30", "s": "رياضة 2", "i": "أ. جميلة اوشاح"}], "الإثنين": [{"t": "11:00 – 11:30", "s": "رياضة 2", "i": "أ. جميلة اوشاح"}, {"t": "12:00 – 14:00", "s": "لغة انجليزية 2", "i": "أ. عواطف عامر"}], "الثلاثاء": [{"t": "8:30 – 10:30", "s": "برمجة الحاسب", "i": "م. عبدالرؤوف ابولجام"}, {"t": "10:30 – 12:30", "s": "الكيمياء العضوية", "i": "أ. زهرة أبوقرين"}, {"t": "12:30 – 2:30", "s": "الكيمياء العضوية – معمل", "i": "م. خالد مصباح"}], "الأربعاء": [{"t": "10:30 – 12:30", "s": "كيمياء فيزيائية", "i": "أ. زهرة أبوقرين"}], "الخميس": [{"t": "8:30 – 10:30", "s": "كيمياء فيزيائية – معمل", "i": "م. نور الهدى عامر"}]}}, "3": {"mode": "single", "days": {"السبت": [{"t": "8:30 – 10:30", "s": "أسس هندسة كهربائية", "i": "أ. مولود كنان"}, {"t": "10:30 – 12:30", "s": "أسس هندسة كهربائية – معمل", "i": "م. بدور الجمل"}, {"t": "12:30 – 2:30", "s": "ميكانيكا الموائع", "i": "أ. خيري بنوبة"}], "الأحد": [{"t": "10:30 – 12:30", "s": "رياضة 3", "i": "أ. جميلة اوشاح"}], "الإثنين": [{"t": "8:30 – 10:30", "s": "صناعات كيميائية", "i": "د. أحمد كريديغ"}, {"t": "10:30 – 12:30", "s": "ميكانيكا الموائع – معمل", "i": "م. نجاح أحمد"}, {"t": "12:30 – 2:30", "s": "لغة انجليزية 3", "i": "أ. حمزة عبدالسلام"}], "الثلاثاء": [{"t": "8:30 – 10:30", "s": "كيمياء تحليلية وتحليل آلي", "i": "م. أسماء فرحات"}, {"t": "10:30 – 12:30", "s": "ديناميكا حرارية", "i": "أ. سامي احتيوش"}], "الأربعاء": [{"t": "8:30 – 10:30", "s": "مقدمة هندسة كيميائية 2", "i": "أ. فتحي عبداللطيف"}], "الخميس": [{"t": "8:30 – 10:30", "s": "كيمياء تحليلية وتحليل آلي – معمل", "i": "م. نور الهدى عامر"}, {"t": "10:30 – 11:30", "s": "رياضة 3", "i": "أ. جميلة اوشاح"}]}}, "4": {"mode": "single", "days": {"السبت": [], "الأحد": [{"t": "10:30 – 12:30", "s": "صناعات بتروكيماوية", "i": "د. أحمد كريديغ"}], "الإثنين": [{"t": "10:30 – 12:30", "s": "هندسة تكرير النفط والغاز", "i": "د. أحمد كريديغ"}, {"t": "12:30 – 2:30", "s": "هندسة تكرير النفط والغاز – معمل", "i": "م. نجاح"}], "الثلاثاء": [{"t": "8:30 – 10:30", "s": "انتقال الحرارة", "i": "أ. سامي احتيوش"}, {"t": "10:30 – 12:30", "s": "التحليل العددي وتطبيقاته", "i": "أ. مروة عبدالفتاح"}, {"t": "12:30 – 2:30", "s": "التحليل العددي وتطبيقاته – معمل", "i": "أ. مروة عبدالفتاح"}], "الأربعاء": [{"t": "12:30 – 2:30", "s": "علم المواد والتآكل – معمل", "i": ""}], "الخميس": [{"t": "8:30 – 10:30", "s": "انتقال مادة", "i": "أ. ريحان الغول"}, {"t": "10:30 – 12:30", "s": "هندسة تفاعلات كيميائية", "i": "أ. ريحان الغول"}]}}, "5": {"mode": "single", "days": {"السبت": [{"t": "8:30 – 10:30", "s": "وحدات تشغيلية", "i": "أ. عيسى المدهوني"}, {"t": "10:30 – 12:30", "s": "تصميم المصانع", "i": "أ. عيسى المدهوني"}], "الأحد": [{"t": "8:30 – 10:30", "s": "تحلية ومعالجة المياه – معمل", "i": ""}, {"t": "10:30 – 12:30", "s": "القياس والتحكم في العمليات الكيميائية", "i": "أ. مولود كنان"}], "الإثنين": [], "الثلاثاء": [{"t": "8:30 – 10:30", "s": "الإدارة والاقتصاد الهندسي", "i": ""}, {"t": "10:30 – 12:30", "s": "تشغيل وصيانة العمليات الكيميائية", "i": "م. هناء صبحي"}], "الأربعاء": [{"t": "8:30 – 10:30", "s": "التلوث الصناعي", "i": "أ. اسماعيل المدهوني"}, {"t": "10:30 – 12:30", "s": "تشغيل وصيانة العمليات الكيميائية – معمل", "i": ""}], "الخميس": []}}}, "العلوم الإدارية": {"1": {"mode": "groups", "A": {"الأحد": [{"t": "08:30 – 10:30", "s": "رياضة 1", "i": "مروة عبدالفتاح"}, {"t": "10:30 – 12:30", "s": "إحصاء 1", "i": "فتحي المدهوني"}], "الإثنين": [{"t": "08:30 – 10:30", "s": "أساسيات حاسب آلي – عملي", "i": "سامية الجد يدي"}, {"t": "10:30 – 01:30", "s": "مبادئ اقتصاد", "i": "ربيعة ابوزيد"}], "الثلاثاء": [{"t": "", "s": "لغة عربية", "i": "انتصار البسكري"}, {"t": "11:30 – 01:30", "s": "انجليزي 1", "i": "عواطف عامر"}], "الأربعاء": [{"t": "08:30 – 10:30", "s": "رياضة 1", "i": "مروة عبدالفتاح"}, {"t": "10:30 – 03:30", "s": "مبادئ محاسبة 1", "i": "منذر ابوبكر"}], "الخميس": [{"t": "08:30 – 10:30", "s": "أساسيات حاسب آلي – نظري", "i": "عبد الرؤوف ابولجام"}, {"t": "", "s": "مبادئ إدارة أعمال", "i": "عماد البكوش"}]}, "B": {"الأحد": [{"t": "08:30 – 10:30", "s": "أساسيات حاسب آلي – نظري", "i": "عبد الرؤوف ابولجام"}, {"t": "10:30 – 12:30", "s": "رياضة 1", "i": "مروة عبدالفتاح"}], "الإثنين": [{"t": "08:30 – 10:30", "s": "انجليزي 1", "i": "عواطف عامر"}, {"t": "10:30 – 12:30", "s": "أساسيات حاسب آلي – عملي", "i": "سامية الجد يدي"}], "الثلاثاء": [{"t": "08:30 – 11:30", "s": "إحصاء 1", "i": "فتحي المدهوني"}, {"t": "11:30 – 02:30", "s": "مبادئ إدارة أعمال", "i": "محمد بشير"}], "الأربعاء": [{"t": "08:30 – 01:30", "s": "مبادئ محاسبة 1", "i": "منذر ابوبكر"}, {"t": "01:30 – 03:30", "s": "رياضة 1", "i": "مروة عبدالفتاح"}], "الخميس": [{"t": "08:30 – 11:30", "s": "مبادئ اقتصاد", "i": "ربيعة ابوزيد"}, {"t": "11:30 – 01:30", "s": "لغة عربية", "i": "انتصار البسكري"}]}}, "2": {"mode": "single", "days": {"الأحد": [{"t": "08:30 – 12:30", "s": "طرق بحث", "i": "محمد بشير"}, {"t": "10:30 – 12:30", "s": "مبادئ محاسبة 2", "i": "منذر ابوبكر"}], "الإثنين": [{"t": "08:30 – 01:30", "s": "مبادئ محاسبة 2", "i": "منذر ابوبكر"}, {"t": "01:30 – 03:30", "s": "انجليزي 2", "i": "حمزة عبدالسلام"}], "الثلاثاء": [{"t": "10:30 – 08:30", "s": "رياضة 2", "i": "مروة عبدالفتاح"}, {"t": "10:30 – 01:30", "s": "إحصاء 2", "i": "فتحي المدهوني"}], "الأربعاء": [{"t": "", "s": "مبادئ تمويل", "i": "عماد البكوش"}, {"t": "11:30 – 02:30", "s": "علوم سلوكية", "i": "محمد بشير"}], "الخميس": [{"t": "", "s": "مبادئ تمويل", "i": "عماد البكوش"}, {"t": "11:30 – 01:30", "s": "رياضة 2", "i": "مروة عبدالفتاح"}]}}, "3": {"mode": "single", "days": {"الأحد": [{"t": "08:30 – 09:30", "s": "قواعد بيانات – نظري", "i": "وفاء الدريدي"}], "الإثنين": [{"t": "08:30 – 11:30", "s": "إدارة مشتريات ومخازن", "i": "ربيعة ابوزيد"}, {"t": "11:30 – 02:30", "s": "قانون تجاري", "i": "عبدالفتاح سالم"}], "الثلاثاء": [{"t": "08:30 – 11:30", "s": "إدارة موارد بشرية", "i": "عماد البكوش"}, {"t": "11:30 – 02:30", "s": "إدارة مكاتب", "i": "عماد البكوش"}], "الأربعاء": [{"t": "08:30 – 10:30", "s": "قواعد بيانات – عملي", "i": "سناء اوشاح"}, {"t": "", "s": "إدارة مؤسسات مالية", "i": "عماد البكوش"}], "الخميس": [{"t": "08:30 – 10:30", "s": "محاسبة متوسطة", "i": "منذر ابوبكر"}, {"t": "11:30 – 02:30", "s": "إدارة عمليات إنتاجية", "i": "فوزي ابوقفة"}]}}, "4": {"mode": "single", "days": {"السبت": [{"t": "08:30 – 10:30", "s": "بحوث العمليات", "i": "فوزي ابوقفة"}, {"t": "10:30 – 12:30", "s": "إدارة مالية", "i": "فوزي ابوقفة"}], "الأحد": [{"t": "11:30 – 02:30", "s": "نظم معلومات", "i": "محمد بشير"}], "الإثنين": [{"t": "08:30 – 11:30", "s": "قانون إداري", "i": "عبدالفتاح سالم"}, {"t": "11:30 – 01:30", "s": "دراسة جدوى", "i": "أحمد الكار"}], "الثلاثاء": [{"t": "08:30 – 10:30", "s": "بحوث العمليات", "i": "فوزي ابوقفة"}, {"t": "10:30 – 12:30", "s": "إدارة مالية", "i": "فوزي ابوقفة"}], "الأربعاء": [{"t": "08:30 – 11:30", "s": "إدارة تسويق", "i": "أحمد الكار"}, {"t": "11:30 – 01:30", "s": "دراسة جدوى", "i": "أحمد الكار"}], "الخميس": [{"t": "08:30 – 11:30", "s": "سلوك تنظيمي", "i": "أحمد الكار"}, {"t": "", "s": "نظرية المنظمة", "i": "محمد بشير"}]}}, "5": {"mode": "single", "days": {"الأحد": [{"t": "08:30 – 11:30", "s": "إدارة الأزمات", "i": "ربيعة ابوزيد"}, {"t": "11:30 – 01:30", "s": "إدارة دولية", "i": "ربيعة ابوزيد"}], "الإثنين": [{"t": "08:30 – 10:30", "s": "محاسبة إدارية", "i": "فوزي ابوقفة"}, {"t": "", "s": "تطبيقات حديثة في الإدارة", "i": "محمد بشير"}], "الثلاثاء": [{"t": "08:30 – 11:30", "s": "إدارة استراتيجية", "i": "أحمد عون"}, {"t": "11:30 – 01:30", "s": "إدارة دولية", "i": "ربيعة ابوزيد"}], "الأربعاء": [{"t": "08:30 – 11:30", "s": "إدارة مشروعات", "i": "أحمد عون"}], "الخميس": [{"t": "08:30 – 10:30", "s": "محاسبة إدارية", "i": "فوزي ابوقفة"}, {"t": "10:30 – 01:30", "s": "إدارة الجودة الشاملة", "i": "أحمد الكار"}]}}}};const MAJOR_META = { "علوم الحاسوب": {icon:"laptop", color:"#00f2ff"}, "التقنية الكهربائية": {icon:"bolt", color:"#ffcc33"}, "التقنية الكيميائية": {icon:"flask", color:"#35e0a1"}, "العلوم الإدارية": {icon:"briefcase", color:"#ff00c1"},};// خريطة قاعات طلاب/طالبات (معلومة إضافية من الجدول الرسمي لقسم الإدارية)const ROOMS = { "العلوم الإدارية": { "1": {A:"106", B:"102"} } };// افتراض العرض: مجموعة A = طلاب، مجموعة B = طالبات — عدّل هنا إن كان العكسconst GROUP_LABELS = { A:{name:"طلاب"}, B:{name:"طالبات"} };const TRACK_META = { "تقنية الاتصالات": {icon:"telecom", desc:"شبكات، دوائر، أنظمة اتصال"}, "أنظمة القدرة": {icon:"power", desc:"محطات القوى، الشبكات الكهربائية"},};const DAYS = ["السبت","الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس"];const ICONS = {"cap": "<svg class=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3 2 8l10 5 8-4.2V15h1.6V8z\"/><path d=\"M6 11.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5\" fill=\"none\"/></svg>", "book": "<svg class=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 5.5A2.5 2.5 0 0 1 6.5 3H12v16H6.5A2.5 2.5 0 0 0 4 21.5z\"/><path d=\"M20 5.5A2.5 2.5 0 0 0 17.5 3H12v16h5.5a2.5 2.5 0 0 1 2.5 2.5z\"/></svg>", "exam": "<svg class=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"5\" y=\"4\" width=\"14\" height=\"17\" rx=\"2\"/><path d=\"M9 3h6v3H9z\"/><path d=\"m8.5 13 2.3 2.3L15.5 11\"/></svg>", "briefcase": "<svg class=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"7.5\" width=\"18\" height=\"12\" rx=\"2\"/><path d=\"M8 7.5V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1.5\"/><path d=\"M3 12.5h18\"/></svg>", "flask": "<svg class=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9.5 3h5\"/><path d=\"M10.5 3v6.2L5.3 18a2 2 0 0 0 1.8 3h9.8a2 2 0 0 0 1.8-3l-5.2-8.8V3\"/><path d=\"M8 15h8\"/></svg>", "laptop": "<svg class=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"4\" y=\"5\" width=\"16\" height=\"10.5\" rx=\"1.5\"/><path d=\"M2.5 19.5h19\"/><path d=\"M9 19.5l.6-3.5h4.8l.6 3.5\"/></svg>", "bolt": "<svg class=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12.8 2 5 13.5h5.5L10.2 22 19 9.8h-5.7z\"/></svg>", "calendar": "<svg class=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3.5\" y=\"5\" width=\"17\" height=\"16\" rx=\"2\"/><path d=\"M8 3v4M16 3v4M3.5 10h17\"/></svg>", "subject": "<svg class=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 4.5A1.5 1.5 0 0 1 6.5 3H17l2 2.2V19.5A1.5 1.5 0 0 1 17.5 21h-11A1.5 1.5 0 0 1 5 19.5z\"/><path d=\"M8.5 9h7M8.5 12.5h7M8.5 16h4\"/></svg>", "clock": "<svg class=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"8.5\"/><path d=\"M12 7.5V12l3.2 2\"/></svg>", "back": "<svg class=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 5l7 7-7 7\"/></svg>", "telecom": "<svg class=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 21v-6\"/><circle cx=\"12\" cy=\"11\" r=\"2.3\"/><path d=\"M8.5 7.5a5 5 0 0 0 0 7M15.5 7.5a5 5 0 0 1 0 7M5.8 4.8a9 9 0 0 0 0 12.4M18.2 4.8a9 9 0 0 1 0 12.4\"/></svg>", "power": "<svg class=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"9\" width=\"18\" height=\"7\" rx=\"1.5\"/><path d=\"M7 9V6.5M11 9V6.5M7 16v2.5M11 16v2.5\"/><path d=\"M15 12.5h3\"/></svg>", "users": "<svg class=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"8.5\" cy=\"8\" r=\"3.2\"/><path d=\"M2.8 19c.6-3.4 3-5.3 5.7-5.3s5.1 1.9 5.7 5.3\"/><circle cx=\"17\" cy=\"9\" r=\"2.6\"/><path d=\"M15.3 13.8c2.2.3 3.9 2 4.4 4.9\" /></svg>", "empty": "<svg class=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 8v5\"/><circle cx=\"12\" cy=\"16\" r=\".4\" fill=\"currentColor\"/><circle cx=\"12\" cy=\"12\" r=\"9\"/></svg>"};/* شخصيات SVG: طالب / طالبة — الألوان تتبع المتغير --c عبر currentColor */const AVATARS = {boys: `<svg class="avatar" viewBox="0 0 160 160" role="img" aria-label="شخصية طالب" xmlns="http://www.w3.org/2000/svg">  <defs>    <radialGradient id="avBg1" cx=".5" cy=".3" r=".8"><stop offset="0" stop-color="#1b4a96"/><stop offset="1" stop-color="#0a1a3c"/></radialGradient>    <linearGradient id="avShirt1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2ee0ff"/><stop offset="1" stop-color="#1f6bff"/></linearGradient>    <clipPath id="avClip1"><circle cx="80" cy="80" r="76"/></clipPath>  </defs>  <circle cx="80" cy="80" r="76" fill="url(#avBg1)"/>  <circle cx="80" cy="66" r="52" fill="#fff" opacity=".07"/>  <g clip-path="url(#avClip1)">    <rect x="68" y="92" width="24" height="36" rx="9" fill="#dca078"/>    <path d="M6 172C6 136 38 118 66 116Q80 134 94 116C122 118 154 136 154 172Z" fill="url(#avShirt1)"/>    <path d="M66 116Q80 134 94 116" fill="none" stroke="#eaf9ff" stroke-width="3.5" stroke-linecap="round"/>    <path d="M52 150C60 140 70 136 80 136" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="3" stroke-linecap="round"/>    <ellipse cx="50" cy="72" rx="5.5" ry="7.5" fill="#e8ad84"/>    <ellipse cx="110" cy="72" rx="5.5" ry="7.5" fill="#e8ad84"/>    <ellipse cx="80" cy="68" rx="30" ry="34" fill="#f4c8a2"/>    <path d="M49 70C43 40 60 22 82 22C106 22 120 40 111 70C108 58 101 49 91 45C80 53 64 55 55 60C52 63 50 66 49 70Z" fill="#241a17"/>    <path d="M64 33C70 28 78 26 86 26" fill="none" stroke="#fff" stroke-opacity=".2" stroke-width="3" stroke-linecap="round"/>    <path d="M62 64Q69 60 76 63" fill="none" stroke="#241a17" stroke-width="3" stroke-linecap="round"/>    <path d="M84 63Q91 60 98 64" fill="none" stroke="#241a17" stroke-width="3" stroke-linecap="round"/>    <g class="eyes">      <ellipse cx="69" cy="73" rx="3.6" ry="4.6" fill="#1b1b2a"/>      <ellipse cx="91" cy="73" rx="3.6" ry="4.6" fill="#1b1b2a"/>      <circle cx="70.2" cy="71.4" r="1.3" fill="#fff"/>      <circle cx="92.2" cy="71.4" r="1.3" fill="#fff"/>    </g>    <path d="M80 76Q77 84 82 85" fill="none" stroke="#d29468" stroke-width="2.2" stroke-linecap="round"/>    <path d="M70 90Q80 99 90 90" fill="none" stroke="#a24a3b" stroke-width="3.2" stroke-linecap="round"/>    <circle cx="61" cy="84" r="5.5" fill="#ff8f8f" opacity=".28"/>    <circle cx="99" cy="84" r="5.5" fill="#ff8f8f" opacity=".28"/>  </g>  <circle class="ring" cx="80" cy="80" r="76"/></svg>`,girls: `<svg class="avatar" viewBox="0 0 160 160" role="img" aria-label="شخصية طالبة" xmlns="http://www.w3.org/2000/svg">  <defs>    <radialGradient id="avBg2" cx=".5" cy=".3" r=".8"><stop offset="0" stop-color="#6a1f86"/><stop offset="1" stop-color="#1d0a3a"/></radialGradient>    <linearGradient id="avHij2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff5ad8"/><stop offset="1" stop-color="#b3119a"/></linearGradient>    <clipPath id="avClip2"><circle cx="80" cy="80" r="76"/></clipPath>  </defs>  <circle cx="80" cy="80" r="76" fill="url(#avBg2)"/>  <circle cx="80" cy="66" r="52" fill="#fff" opacity=".07"/>  <g clip-path="url(#avClip2)">    <path d="M4 172C4 138 36 122 80 122C124 122 156 138 156 172Z" fill="#4b1d78"/>    <path d="M39 76C34 36 55 15 80 15C105 15 126 36 121 76C120 94 128 110 146 124C126 138 104 144 80 144C56 144 34 138 14 124C32 110 40 94 39 76Z" fill="url(#avHij2)"/>    <path d="M30 122C48 132 64 135 80 135" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="3" stroke-linecap="round"/>    <path d="M130 122C112 132 96 135 80 135" fill="none" stroke="#7a0b6a" stroke-opacity=".35" stroke-width="3" stroke-linecap="round"/>    <path d="M54 38C61 29 72 24 86 24" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="3.5" stroke-linecap="round"/>    <ellipse cx="80" cy="73" rx="28.5" ry="32" fill="#c8168f"/>    <ellipse cx="80" cy="74" rx="25.5" ry="29.5" fill="#f4c8a2"/>    <path d="M61 65Q69 60 76 64" fill="none" stroke="#5a3b2e" stroke-width="2.6" stroke-linecap="round"/>    <path d="M84 64Q91 60 99 65" fill="none" stroke="#5a3b2e" stroke-width="2.6" stroke-linecap="round"/>    <g class="eyes">      <ellipse cx="69" cy="75" rx="3.4" ry="4.5" fill="#1b1b2a"/>      <ellipse cx="91" cy="75" rx="3.4" ry="4.5" fill="#1b1b2a"/>      <circle cx="70.1" cy="73.4" r="1.3" fill="#fff"/>      <circle cx="92.1" cy="73.4" r="1.3" fill="#fff"/>      <path d="M64.5 72L61.5 69.8M95.5 72L98.5 69.8" fill="none" stroke="#1b1b2a" stroke-width="1.8" stroke-linecap="round"/>    </g>    <path d="M80 78Q77.5 85 82 86" fill="none" stroke="#d29468" stroke-width="2.1" stroke-linecap="round"/>    <path d="M72 91Q80 98 88 91" fill="none" stroke="#b4465a" stroke-width="3" stroke-linecap="round"/>    <circle cx="62" cy="86" r="5" fill="#ff7aa8" opacity=".32"/>    <circle cx="98" cy="86" r="5" fill="#ff7aa8" opacity=".32"/>  </g>  <circle class="ring" cx="80" cy="80" r="76"/></svg>`};let state = { major:null, sem:null, group:null, track:null };function showStep(id){  document.querySelectorAll('.step').forEach(s=>s.classList.add('hidden'));  document.getElementById(id).classList.remove('hidden');  window.scrollTo({top:0,behavior:'smooth'});}function goAcademic(){ showStep('step1'); }function goExams(){ window.location.href = 'exams.html'; }function selectMajor(m){  state.major = m; state.sem=null; state.group=null; state.track=null;  document.getElementById('s2-major').textContent = m;  document.getElementById('s2-icon').innerHTML = ICONS[MAJOR_META[m].icon];  document.getElementById('s2-icon').style.color = MAJOR_META[m].color;  const sel = document.getElementById('sem-select');  sel.innerHTML='';  Object.keys(DATA[m]).sort((a,b)=>a-b).forEach(s=>{    const o=document.createElement('option'); o.value=s; o.textContent='الفصل '+arNum(s); sel.appendChild(o);  });  onSemChange();  showStep('step2');}const AR_ORD = {1:'الأول',2:'الثاني',3:'الثالث',4:'الرابع',5:'الخامس',6:'السادس'};function arNum(n){ return AR_ORD[n] || n; }function onSemChange(){  const sem = document.getElementById('sem-select').value;  state.sem = sem; state.group=null; state.track=null;  const obj = DATA[state.major][sem];  const box = document.getElementById('sub-picker');  box.innerHTML='';  if(obj.mode==='groups'){    const rooms = (ROOMS[state.major]||{})[sem]||{};    box.innerHTML = `<div class="sub-label">اختر مجموعتك</div><div class="pickrow" id="grp-row"></div>`;    const row = document.getElementById('grp-row');    ['A','B'].forEach(g=>{      const av = g==='A' ? AVATARS.boys : AVATARS.girls;      const col = g==='A' ? 'var(--cyan)' : 'var(--pink)';      const room = rooms[g] ? `<small>قاعة ${rooms[g]}</small>` : '';      const d = document.createElement('div');      d.className='avatar-card'; d.style.setProperty('--ac',col);      d.innerHTML = `<span class="av-wrap">${av}</span><b>مجموعة ${g}</b><span>${GROUP_LABELS[g].name}</span>${room}`;      d.onclick=()=>{ state.group=g; [...row.children].forEach(x=>x.classList.remove('active')); d.classList.add('active'); };      row.appendChild(d);    });  } else if(obj.mode==='tracks'){    box.innerHTML = `<div class="sub-label">اختر الشعبة</div><div id="trk-row"></div>`;    const row = document.getElementById('trk-row');    Object.keys(obj.tracks).forEach(t=>{      const meta = TRACK_META[t] || {icon:'bolt',desc:''};      const d = document.createElement('div');      d.className='track-card'; d.style.setProperty('--tc', MAJOR_META[state.major].color);      d.innerHTML = `<span class="tile-ic">${ICONS[meta.icon]}</span><span><b>${t}</b><span>${meta.desc}</span></span>`;      d.onclick=()=>{ state.track=t; [...row.children].forEach(x=>x.style.borderColor=''); d.style.borderColor=MAJOR_META[state.major].color; };      row.appendChild(d);    });  }}function confirmSchedule(){  const obj = DATA[state.major][state.sem];  if(obj.mode==='groups' && !state.group){ shake('sub-picker'); return; }  if(obj.mode==='tracks' && !state.track){ shake('sub-picker'); return; }  renderSchedule();  showStep('step3');}function shake(id){  const el=document.getElementById(id);  el.animate([{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:300});}function renderSchedule(){  const obj = DATA[state.major][state.sem];  let days;  let subLabel = '';  if(obj.mode==='single') days = obj.days;  else if(obj.mode==='groups'){ days = obj[state.group]; subLabel = ' · مجموعة '+state.group+' ('+GROUP_LABELS[state.group].name+')'; }  else { days = obj.tracks[state.track]; subLabel = ' · '+state.track; }  document.getElementById('s3-title').textContent = state.major + ' — الفصل ' + arNum(state.sem);  document.getElementById('s3-sub').textContent = 'خريف 2026/2027' + subLabel;  const badge = document.getElementById('s3-badge');  badge.innerHTML = ICONS[MAJOR_META[state.major].icon];  badge.style.setProperty('--mc', MAJOR_META[state.major].color);  badge.style.color = MAJOR_META[state.major].color;  const list = document.getElementById('schedule-list');  list.innerHTML='';  DAYS.forEach(day=>{    const periods = days[day] || [];    const block = document.createElement('div'); block.className='day-block';    block.innerHTML = `<div class="day-title">${ICONS.calendar}<span>${day}</span></div>`;    if(periods.length===0){      block.innerHTML += `<div class="day-empty">${ICONS.empty} لا توجد محاضرات</div>`;    } else {      periods.forEach(p=>{        const row = document.createElement('div'); row.className='period-row';        row.style.setProperty('--mc', MAJOR_META[state.major].color);        const inst = p.i ? `<div class="pr-inst">${p.i}</div>` : '';        row.innerHTML = `<div class="pr-time">${ICONS.clock}<span class="tval">${p.t||'—'}</span></div><div class="pr-main"><div class="pr-subj">${p.s}</div>${inst}</div>`;        block.appendChild(row);      });    }    list.appendChild(block);  });}// نجوم خلفية خفيفة(function(){  const sc = document.getElementById('scene');  for(let i=0;i<22;i++){    const s=document.createElement('i');    const sz = (Math.random()*2+1).toFixed(1);    s.style.width=s.style.height=sz+'px';    s.style.left=(Math.random()*100)+'%';    s.style.top=(Math.random()*70)+'%';    s.style.animationDelay=(Math.random()*5).toFixed(1)+'s';    sc.appendChild(s);  }})();</script></body></html>
